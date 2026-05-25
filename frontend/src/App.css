@@ -1,0 +1,15 @@
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+header {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 20px 0;
+  color: white;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
