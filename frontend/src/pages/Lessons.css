@@ -29,6 +29,22 @@
   flex: 1;
 }
 
+.logout-btn-header {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.logout-btn-header:hover {
+  background: #764ba2;
+}
+
 .lesson-content {
   padding: 40px 20px;
 }

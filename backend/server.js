@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
+const sequelize = require('./db');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,25 +18,21 @@ app.get('/api/health', (req, res) => {
   res.json({ message: 'Language Learning API is running' });
 });
 
-// Auth routes (placeholder)
-app.post('/api/auth/register', (req, res) => {
-  res.json({ message: 'Register endpoint' });
+// Auth routes
+app.use('/api/auth', authRoutes);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Internal server error' });
 });
 
-app.post('/api/auth/login', (req, res) => {
-  res.json({ message: 'Login endpoint' });
-});
-
-// Lessons routes (placeholder)
-app.get('/api/lessons', (req, res) => {
-  res.json({ message: 'Get all lessons' });
-});
-
-app.get('/api/lessons/:id', (req, res) => {
-  res.json({ message: 'Get lesson by ID' });
-});
-
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+// Database sync and start server
+sequelize.sync({ alter: true }).then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+    console.log('Database synchronized');
+  });
+}).catch(err => {
+  console.error('Database sync error:', err);
 });

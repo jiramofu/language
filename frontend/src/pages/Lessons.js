@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import './Lessons.css';
 
-function Lessons() {
+function Lessons({ onLogout, isAuthenticated }) {
   const { language } = useParams();
   const [currentLesson, setCurrentLesson] = useState(0);
+  const navigate = useNavigate();
 
   // Placeholder lessons
   const lessons = [
@@ -28,11 +29,17 @@ function Lessons() {
 
   const lesson = lessons[currentLesson];
 
+  const handleLogout = () => {
+    onLogout();
+    navigate('/login');
+  };
+
   return (
     <div className="lessons">
       <header className="lessons-header">
         <Link to="/" className="back-btn">← Back</Link>
         <h1>{language.charAt(0).toUpperCase() + language.slice(1)} Lessons</h1>
+        <button className="logout-btn-header" onClick={handleLogout}>Logout</button>
       </header>
 
       <div className="container">
