@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const sequelize = require('./db');
 const authRoutes = require('./routes/auth');
+const lessonRoutes = require('./routes/lessons');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -18,8 +19,8 @@ app.get('/api/health', (req, res) => {
   res.json({ message: 'Language Learning API is running' });
 });
 
-// Auth routes
 app.use('/api/auth', authRoutes);
+app.use('/api/lessons', lessonRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
